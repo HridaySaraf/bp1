@@ -1,0 +1,72 @@
+{
+  "theme": "dark",
+  "archetype": "Archetype 4 (Swiss & High-Contrast) - Industrial Variant",
+  "design_philosophy": "A hyper-modern, industrial-grade digital business card for a petrochemical supplier. Emphasizes purity (D.E.F.) and performance through stark contrast, metallic textures, and neon cyan accents over a deep obsidian foundation. Uses structural, brutalist bento-grids for action buttons.",
+  "colors": {
+    "background": "#050505",
+    "surface": "#111111",
+    "surface_hover": "#1A1A1A",
+    "border": "#222222",
+    "primary": "#00E5FF",
+    "primary_hover": "#00B8D4",
+    "text_primary": "#FFFFFF",
+    "text_secondary": "#A1A1AA",
+    "accent_blue": "#0055FF"
+  },
+  "typography": {
+    "heading_font": "Cabinet Grotesk",
+    "body_font": "IBM Plex Sans",
+    "import_links": [
+      "https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@900,800,700,500,400&display=swap",
+      "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+    ],
+    "rules": {
+      "h1": "font-['Cabinet_Grotesk'] text-3xl sm:text-4xl font-black tracking-tighter text-white uppercase",
+      "h2": "font-['Cabinet_Grotesk'] text-2xl sm:text-3xl font-bold tracking-tight text-white",
+      "h3": "font-['Cabinet_Grotesk'] text-xl sm:text-2xl font-semibold tracking-tight text-white",
+      "body": "font-['IBM_Plex_Sans'] text-base text-zinc-400 font-normal leading-relaxed",
+      "overline": "font-['IBM_Plex_Sans'] text-xs font-bold uppercase tracking-[0.2em] text-cyan-400"
+    }
+  },
+  "spacing_and_layout": {
+    "strategy": "Mobile-first, dense but structured 'Bento' grid for quick actions. Generous padding around the main card container (p-6 or p-8).",
+    "container": "max-w-md mx-auto min-h-screen bg-[#050505] relative overflow-hidden flex flex-col justify-center py-10 px-4",
+    "bento_grid": "grid grid-cols-2 gap-4 my-8"
+  },
+  "surface_strategies": {
+    "main_card": "Glassmorphism mixed with Neumorphism: bg-black/60 backdrop-blur-2xl border border-white/10 rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.6)] overflow-hidden p-6 sm:p-8 relative z-10",
+    "action_buttons": "flex flex-col items-center justify-center p-4 rounded-2xl bg-[#111111] border border-[#222222] hover:bg-[#1a1a1a] hover:border-cyan-400/50 transition-all duration-300 group cursor-pointer",
+    "primary_cta": "w-full py-4 rounded-xl bg-cyan-400 text-black font-['Cabinet_Grotesk'] font-bold text-lg hover:bg-cyan-300 shadow-[0_0_15px_rgba(0,229,255,0.2)] hover:shadow-[0_0_25px_rgba(0,229,255,0.4)] transition-all duration-300 flex justify-center items-center gap-2",
+    "secondary_cta": "w-full py-4 rounded-xl bg-transparent border border-zinc-700 text-white font-['Cabinet_Grotesk'] font-bold text-lg hover:bg-white/5 transition-all duration-300 flex justify-center items-center gap-2"
+  },
+  "media": {
+    "logo_url": "https://customer-assets.emergentagent.com/job_visitcard-hub/artifacts/zqt8r0fa_image.png",
+    "background_image_url": "https://static.prod-images.emergentagent.com/jobs/52664dc2-5e25-44bb-8185-a22124802875/images/030cef0149f4d1ac30b89264efad0023677ce156b3c350cfbe5f70e27a1982e1.png",
+    "background_liquid_accent_url": "https://static.prod-images.emergentagent.com/jobs/52664dc2-5e25-44bb-8185-a22124802875/images/32ed86799dcfdf672a14c3b9faef0d4053745353dab340b55aafadec01c15a11.png"
+  },
+  "components_needed": {
+    "icons_library": "react-icons (Install using `yarn add react-icons`) and lucide-react",
+    "icons_to_use": ["FaWhatsapp", "FaInstagram", "FaPhone", "FaEnvelope", "MapPin", "Globe", "Download", "Share2"],
+    "shadcn": ["Toaster (for share notifications)"]
+  },
+  "animations": {
+    "entrance": "Use framer-motion. Staggered fade-in up for card elements. Initial y: 20, opacity: 0.",
+    "hover": "Scale up slightly (scale-105) for bento action icons, group-hover text color changes."
+  },
+  "testing": {
+    "rules": "All interactive elements MUST include data-testid attributes (e.g., data-testid='call-button', data-testid='save-vcard-button', data-testid='whatsapp-button')."
+  },
+  "instructions_to_main_agent": [
+    "1. Setup tailwind.config.js to include the custom fonts and colors.",
+    "2. Add the custom font imports to index.css.",
+    "3. Install `react-icons` and `framer-motion`.",
+    "4. Container Setup: Use `max-w-md mx-auto` for the app to simulate a mobile device on desktop. Set `background_image_url` as an absolute, full-cover background image with a dark overlay (`bg-black/70` or similar gradient) behind the `main_card`.",
+    "5. Header Section: Inside the main card, place the company logo (with a white background/padding if the logo is dark, or just raw if it fits). Display company name 'Bhumita Petrochem', then the tagline 'Where purity meets performance' as an overline. Then display 'Pranay Shah' and 'Director'.",
+    "6. Quick Actions Grid: Create a 2x2 Bento grid. Items: Call (+91 887-9787-900), WhatsApp, Email (info@bhumitapetrochem.com), Instagram (@bhumitapetrochem). Make sure the whole grid cell is clickable using an anchor tag or button. Use react-icons for social logos.",
+    "7. Primary Actions: Below the grid, add two full-width buttons. 1. 'Save Contact' (primary CTA), 2. 'Share Card' (secondary CTA).",
+    "8. Footer Info: Below the buttons, add a small section with Location (Mumbai, India) and Website (bhumitapetrochem.com).",
+    "9. Functionality - vCard: Implement a function to generate a valid vCard (.vcf) string with Pranay Shah's details and trigger a download when 'Save Contact' is clicked.",
+    "10. Functionality - Share: Use `navigator.share` if available, otherwise fallback to `navigator.clipboard.writeText` (copy the current URL) and show a toast notification.",
+    "11. Ensure contrast ratios are accessible. Hover states must be distinct."
+  ]
+}
