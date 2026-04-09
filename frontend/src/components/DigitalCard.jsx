@@ -26,18 +26,18 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
+      staggerChildren: 0.08,
+      delayChildren: 0.1,
     },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 15 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: 'easeOut' },
+    transition: { duration: 0.4, ease: 'easeOut' },
   },
 };
 
@@ -106,13 +106,13 @@ const shareCard = async () => {
 const ActionButton = ({ icon: Icon, label, href, onClick, testId }) => {
   const content = (
     <motion.div
-      whileHover={{ scale: 1.03 }}
+      whileHover={{ y: -2 }}
       whileTap={{ scale: 0.98 }}
-      className="flex flex-col items-center justify-center p-5 rounded-2xl bg-industrial-surface border border-industrial-border hover:bg-industrial-surface-hover hover:border-cyan-400/50 transition-all duration-300 group cursor-pointer h-full"
+      className="flex flex-col items-center justify-center p-5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-amber-500/30 transition-all duration-300 group cursor-pointer h-full"
       data-testid={testId}
     >
-      <Icon className="w-7 h-7 text-industrial-text-muted group-hover:text-cyan-400 transition-colors duration-300 mb-2" />
-      <span className="text-sm font-ibm text-industrial-text-muted group-hover:text-white transition-colors duration-300">
+      <Icon className="w-6 h-6 text-slate-400 group-hover:text-amber-500 transition-colors duration-300 mb-2" />
+      <span className="text-sm font-medium text-slate-400 group-hover:text-white transition-colors duration-300">
         {label}
       </span>
     </motion.div>
@@ -131,161 +131,156 @@ const ActionButton = ({ icon: Icon, label, href, onClick, testId }) => {
 
 export default function DigitalCard() {
   return (
-    <div className="min-h-screen bg-industrial-bg relative overflow-hidden flex items-center justify-center py-8 px-4">
-      {/* Background Image */}
-      <div 
-        className="absolute inset-0 z-0"
-        style={{
-          backgroundImage: `url(https://static.prod-images.emergentagent.com/jobs/52664dc2-5e25-44bb-8185-a22124802875/images/030cef0149f4d1ac30b89264efad0023677ce156b3c350cfbe5f70e27a1982e1.png)`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
-        <div className="absolute inset-0 bg-black/80" />
-      </div>
+    <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 relative overflow-hidden flex items-center justify-center py-8 px-4">
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 opacity-[0.03]" style={{
+        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+      }} />
 
-      {/* Liquid accent overlay */}
-      <div 
-        className="absolute inset-0 z-0 opacity-30"
-        style={{
-          backgroundImage: `url(https://static.prod-images.emergentagent.com/jobs/52664dc2-5e25-44bb-8185-a22124802875/images/32ed86799dcfdf672a14c3b9faef0d4053745353dab340b55aafadec01c15a11.png)`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          mixBlendMode: 'overlay',
-        }}
-      />
+      {/* Gradient orbs for subtle depth */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-900/20 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-900/10 rounded-full blur-3xl" />
 
       {/* Main Card Container */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="w-full max-w-md bg-black/60 backdrop-blur-2xl border border-white/10 rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.6)] overflow-hidden p-6 sm:p-8 relative z-10"
+        className="w-full max-w-md bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden relative z-10"
         data-testid="digital-card"
       >
-        {/* Header Section */}
-        <motion.div variants={itemVariants} className="flex flex-col items-center text-center mb-8">
-          {/* Logo */}
-          <div className="w-24 h-24 rounded-2xl bg-white p-2 mb-5 shadow-lg">
-            <img 
-              src={CONTACT.logo} 
-              alt={`${CONTACT.company} Logo`}
-              className="w-full h-full object-contain"
-              data-testid="company-logo"
-            />
-          </div>
-          
-          {/* Company Name */}
-          <h1 
-            className="font-cabinet text-2xl sm:text-3xl font-black tracking-tighter text-white uppercase mb-1"
-            data-testid="company-name"
-          >
-            {CONTACT.company}
-          </h1>
-          
-          {/* Tagline */}
-          <p 
-            className="font-ibm text-xs font-bold uppercase tracking-[0.2em] text-cyan-400 mb-6"
-            data-testid="tagline"
-          >
-            {CONTACT.tagline}
-          </p>
-          
-          {/* Divider */}
-          <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent mb-6" />
-          
-          {/* Contact Person */}
-          <h2 
-            className="font-cabinet text-xl sm:text-2xl font-bold tracking-tight text-white"
-            data-testid="contact-name"
-          >
-            {CONTACT.name}
-          </h2>
-          <p 
-            className="font-ibm text-sm text-industrial-text-muted mt-1"
-            data-testid="contact-title"
-          >
-            {CONTACT.title}
-          </p>
-        </motion.div>
-
-        {/* Quick Actions Grid */}
-        <motion.div variants={itemVariants} className="grid grid-cols-2 gap-4 mb-6">
-          <ActionButton
-            icon={FaPhone}
-            label="Call"
-            href={`tel:${CONTACT.phoneClean}`}
-            testId="call-button"
-          />
-          <ActionButton
-            icon={FaWhatsapp}
-            label="WhatsApp"
-            href={`https://wa.me/${CONTACT.phoneClean}`}
-            testId="whatsapp-button"
-          />
-          <ActionButton
-            icon={FaEnvelope}
-            label="Email"
-            href={`mailto:${CONTACT.email}`}
-            testId="email-button"
-          />
-          <ActionButton
-            icon={FaInstagram}
-            label="Instagram"
-            href={CONTACT.instagramUrl}
-            testId="instagram-button"
-          />
-        </motion.div>
-
-        {/* Primary Actions */}
-        <motion.div variants={itemVariants} className="space-y-3 mb-8">
-          {/* Save Contact Button */}
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={downloadVCard}
-            className="w-full py-4 rounded-xl bg-cyan-400 text-black font-cabinet font-bold text-lg hover:bg-cyan-300 shadow-[0_0_15px_rgba(0,229,255,0.2)] hover:shadow-[0_0_25px_rgba(0,229,255,0.4)] transition-all duration-300 flex justify-center items-center gap-2"
-            data-testid="save-contact-button"
-          >
-            <Download className="w-5 h-5" />
-            Save Contact
-          </motion.button>
-
-          {/* Share Card Button */}
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={shareCard}
-            className="w-full py-4 rounded-xl bg-transparent border border-zinc-700 text-white font-cabinet font-bold text-lg hover:bg-white/5 transition-all duration-300 flex justify-center items-center gap-2"
-            data-testid="share-card-button"
-          >
-            <Share2 className="w-5 h-5" />
-            Share Card
-          </motion.button>
-        </motion.div>
-
-        {/* Footer Info */}
-        <motion.div variants={itemVariants} className="pt-6 border-t border-industrial-border">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm">
-            {/* Location */}
-            <div className="flex items-center gap-2 text-industrial-text-muted" data-testid="location">
-              <MapPin className="w-4 h-4 text-cyan-400" />
-              <span className="font-ibm">{CONTACT.location}</span>
+        {/* Header with gradient accent */}
+        <div className="h-1.5 bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500" />
+        
+        <div className="p-8">
+          {/* Header Section */}
+          <motion.div variants={itemVariants} className="flex flex-col items-center text-center mb-8">
+            {/* Logo */}
+            <div className="w-20 h-20 rounded-xl bg-white p-2.5 mb-5 shadow-lg ring-1 ring-black/5">
+              <img 
+                src={CONTACT.logo} 
+                alt={`${CONTACT.company} Logo`}
+                className="w-full h-full object-contain"
+                data-testid="company-logo"
+              />
             </div>
             
-            {/* Website */}
-            <a 
-              href={`https://${CONTACT.website}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-industrial-text-muted hover:text-cyan-400 transition-colors duration-300"
-              data-testid="website-link"
+            {/* Company Name */}
+            <h1 
+              className="font-semibold text-2xl tracking-wide text-white mb-1"
+              data-testid="company-name"
             >
-              <Globe className="w-4 h-4 text-cyan-400" />
-              <span className="font-ibm">{CONTACT.website}</span>
-            </a>
-          </div>
-        </motion.div>
+              {CONTACT.company}
+            </h1>
+            
+            {/* Tagline */}
+            <p 
+              className="text-xs font-medium uppercase tracking-[0.15em] text-amber-500/90 mb-6"
+              data-testid="tagline"
+            >
+              {CONTACT.tagline}
+            </p>
+            
+            {/* Elegant Divider */}
+            <div className="flex items-center gap-3 mb-6 w-full max-w-[200px]">
+              <div className="flex-1 h-px bg-gradient-to-r from-transparent to-white/20" />
+              <div className="w-1.5 h-1.5 rounded-full bg-amber-500/60" />
+              <div className="flex-1 h-px bg-gradient-to-l from-transparent to-white/20" />
+            </div>
+            
+            {/* Contact Person */}
+            <h2 
+              className="text-xl font-medium text-white"
+              data-testid="contact-name"
+            >
+              {CONTACT.name}
+            </h2>
+            <p 
+              className="text-sm text-slate-400 mt-1 font-medium"
+              data-testid="contact-title"
+            >
+              {CONTACT.title}
+            </p>
+          </motion.div>
+
+          {/* Quick Actions Grid */}
+          <motion.div variants={itemVariants} className="grid grid-cols-2 gap-3 mb-6">
+            <ActionButton
+              icon={FaPhone}
+              label="Call"
+              href={`tel:${CONTACT.phoneClean}`}
+              testId="call-button"
+            />
+            <ActionButton
+              icon={FaWhatsapp}
+              label="WhatsApp"
+              href={`https://wa.me/${CONTACT.phoneClean}`}
+              testId="whatsapp-button"
+            />
+            <ActionButton
+              icon={FaEnvelope}
+              label="Email"
+              href={`mailto:${CONTACT.email}`}
+              testId="email-button"
+            />
+            <ActionButton
+              icon={FaInstagram}
+              label="Instagram"
+              href={CONTACT.instagramUrl}
+              testId="instagram-button"
+            />
+          </motion.div>
+
+          {/* Primary Actions */}
+          <motion.div variants={itemVariants} className="space-y-3 mb-8">
+            {/* Save Contact Button */}
+            <motion.button
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.99 }}
+              onClick={downloadVCard}
+              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-900 font-semibold text-base hover:from-amber-400 hover:to-amber-500 shadow-lg shadow-amber-500/20 transition-all duration-300 flex justify-center items-center gap-2"
+              data-testid="save-contact-button"
+            >
+              <Download className="w-4 h-4" />
+              Save Contact
+            </motion.button>
+
+            {/* Share Card Button */}
+            <motion.button
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.99 }}
+              onClick={shareCard}
+              className="w-full py-3.5 rounded-xl bg-white/5 border border-white/10 text-white font-semibold text-base hover:bg-white/10 transition-all duration-300 flex justify-center items-center gap-2"
+              data-testid="share-card-button"
+            >
+              <Share2 className="w-4 h-4" />
+              Share Card
+            </motion.button>
+          </motion.div>
+
+          {/* Footer Info */}
+          <motion.div variants={itemVariants} className="pt-6 border-t border-white/10">
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm">
+              {/* Location */}
+              <div className="flex items-center gap-2 text-slate-400" data-testid="location">
+                <MapPin className="w-4 h-4 text-amber-500/70" />
+                <span>{CONTACT.location}</span>
+              </div>
+              
+              {/* Website */}
+              <a 
+                href={`https://${CONTACT.website}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-slate-400 hover:text-amber-500 transition-colors duration-300"
+                data-testid="website-link"
+              >
+                <Globe className="w-4 h-4 text-amber-500/70" />
+                <span>{CONTACT.website}</span>
+              </a>
+            </div>
+          </motion.div>
+        </div>
       </motion.div>
     </div>
   );

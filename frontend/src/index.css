@@ -6,15 +6,15 @@
 @tailwind utilities;
 
 :root {
-    --background: #050505;
-    --surface: #111111;
-    --surface-hover: #1A1A1A;
-    --border-color: #222222;
-    --primary: #00E5FF;
-    --primary-hover: #00B8D4;
+    --background: #0A1628;
+    --surface: #0F2240;
+    --surface-hover: #162D54;
+    --border-color: #1E3A5F;
+    --primary: #C9A962;
+    --primary-hover: #D4B978;
     --text-primary: #FFFFFF;
-    --text-secondary: #A1A1AA;
-    --accent-blue: #0055FF;
+    --text-secondary: #8BA3C7;
+    --accent-blue: #2563EB;
 }
 
 body {
@@ -50,25 +50,25 @@ code {
 
 @layer base {
     :root {
-        --background: 0 0% 2%;
+        --background: 214 53% 10%;
         --foreground: 0 0% 100%;
-        --card: 0 0% 6.7%;
+        --card: 214 53% 15%;
         --card-foreground: 0 0% 100%;
-        --popover: 0 0% 6.7%;
+        --popover: 214 53% 15%;
         --popover-foreground: 0 0% 100%;
-        --primary: 187 100% 50%;
-        --primary-foreground: 0 0% 0%;
-        --secondary: 0 0% 14.9%;
+        --primary: 43 47% 59%;
+        --primary-foreground: 214 53% 10%;
+        --secondary: 214 53% 20%;
         --secondary-foreground: 0 0% 100%;
-        --muted: 0 0% 14.9%;
-        --muted-foreground: 240 4% 65%;
-        --accent: 0 0% 14.9%;
+        --muted: 214 53% 20%;
+        --muted-foreground: 213 35% 65%;
+        --accent: 214 53% 20%;
         --accent-foreground: 0 0% 100%;
         --destructive: 0 84.2% 60.2%;
         --destructive-foreground: 0 0% 100%;
-        --border: 0 0% 13.3%;
-        --input: 0 0% 13.3%;
-        --ring: 187 100% 50%;
+        --border: 214 45% 22%;
+        --input: 214 45% 22%;
+        --ring: 43 47% 59%;
         --chart-1: 220 70% 50%;
         --chart-2: 160 60% 45%;
         --chart-3: 30 80% 55%;
