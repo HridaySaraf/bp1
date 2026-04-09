@@ -47,8 +47,8 @@ Build a digital visiting card for Bhumita Petrochem similar to an earlier design
 
 ## Tech Stack
 - **Frontend**: React 18, Tailwind CSS, Framer Motion, React Icons
-- **Backend**: FastAPI, Motor (MongoDB async driver)
-- **Database**: MongoDB
+- **Backend**: None (fully static site)
+- **Database**: None required
 - **Styling**: Custom industrial dark theme with cyan accents
 
 ## Prioritized Backlog

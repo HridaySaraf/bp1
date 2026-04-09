@@ -1,22 +1,17 @@
 import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "@/components/ui/sonner";
 import DigitalCard from "@/components/DigitalCard";
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<DigitalCard />} />
-        </Routes>
-      </BrowserRouter>
+      <DigitalCard />
       <Toaster 
         position="top-center"
         toastOptions={{
           style: {
-            background: '#111111',
-            border: '1px solid #222222',
+            background: '#1e293b',
+            border: '1px solid #334155',
             color: '#ffffff',
           },
         }}
