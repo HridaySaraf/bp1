@@ -1,7 +1,7 @@
-import { motion } from 'framer-motion';
-import { FaWhatsapp, FaInstagram, FaPhone, FaEnvelope } from 'react-icons/fa6';
-import { MapPin, Globe, Download, Share2 } from 'lucide-react';
-import { toast } from 'sonner';
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { FaWhatsapp, FaInstagram, FaPhone, FaEnvelope } from 'react-icons/fa6'
+import { MapPin, Globe, Download, Share2, Check, X } from 'lucide-react'
 
 // Contact Information
 const CONTACT = {
@@ -15,92 +15,70 @@ const CONTACT = {
   email: 'info@bhumitapetrochem.com',
   website: 'bhumitapetrochem.com',
   instagram: 'bhumitapetrochem',
-  instagramUrl: 'https://www.instagram.com/bhumitapetrochem?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==',
+  instagramUrl: 'https://www.instagram.com/bhumitapetrochem',
   location: 'Mumbai, India',
   logo: 'https://customer-assets.emergentagent.com/job_visitcard-hub/artifacts/zqt8r0fa_image.png',
-};
+}
 
 // Animation variants
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.1,
-    },
+    transition: { staggerChildren: 0.08, delayChildren: 0.1 },
   },
-};
+}
 
 const itemVariants = {
   hidden: { opacity: 0, y: 15 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.4, ease: 'easeOut' },
-  },
-};
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } },
+}
 
-// Generate vCard string
+// Generate vCard string - Works on Android, iPhone, Desktop
 const generateVCard = () => {
-  const vCard = `BEGIN:VCARD
-VERSION:3.0
-FN:${CONTACT.name}
-ORG:${CONTACT.company}
-TITLE:${CONTACT.title}
-TEL;TYPE=WORK,VOICE:${CONTACT.phoneClean}
-EMAIL;TYPE=WORK:${CONTACT.email}
-URL:https://${CONTACT.website}
-ADR;TYPE=WORK:;;;;;;${CONTACT.location}
-NOTE:${CONTACT.tagline} - ${CONTACT.businessDescription}
-END:VCARD`;
-  return vCard;
-};
+  // Using vCard 3.0 for maximum compatibility
+  const vCard = [
+    'BEGIN:VCARD',
+    'VERSION:3.0',
+    `N:${CONTACT.name.split(' ').reverse().join(';')};;;`,
+    `FN:${CONTACT.name}`,
+    `ORG:${CONTACT.company}`,
+    `TITLE:${CONTACT.title}`,
+    `TEL;TYPE=CELL:+${CONTACT.phoneClean}`,
+    `TEL;TYPE=WORK:+${CONTACT.phoneClean}`,
+    `EMAIL;TYPE=WORK:${CONTACT.email}`,
+    `URL:https://${CONTACT.website}`,
+    `ADR;TYPE=WORK:;;Mumbai;;Maharashtra;;India`,
+    `NOTE:${CONTACT.tagline} - ${CONTACT.businessDescription}`,
+    'END:VCARD'
+  ].join('\r\n')
+  
+  return vCard
+}
 
-// Download vCard
-const downloadVCard = () => {
-  const vCardContent = generateVCard();
-  const blob = new Blob([vCardContent], { type: 'text/vcard;charset=utf-8' });
-  const url = window.URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.setAttribute('download', `${CONTACT.name.replace(' ', '_')}_Bhumita_Petrochem.vcf`);
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  window.URL.revokeObjectURL(url);
-  toast.success('Contact saved!', {
-    description: 'Check your downloads folder',
-  });
-};
-
-// Share card functionality
-const shareCard = async () => {
-  const shareUrl = window.location.href;
-  const shareData = {
-    title: `${CONTACT.name} - ${CONTACT.company}`,
-    text: `Digital Business Card for ${CONTACT.name}, ${CONTACT.title} at ${CONTACT.company}`,
-    url: shareUrl,
-  };
-
-  try {
-    if (navigator.share && navigator.canShare(shareData)) {
-      await navigator.share(shareData);
-    } else {
-      await navigator.clipboard.writeText(shareUrl);
-      toast.success('Link copied!', {
-        description: 'Share this link with your contacts',
-      });
-    }
-  } catch (error) {
-    if (error.name !== 'AbortError') {
-      await navigator.clipboard.writeText(shareUrl);
-      toast.success('Link copied!', {
-        description: 'Share this link with your contacts',
-      });
-    }
-  }
-};
+// Toast Component
+const Toast = ({ message, type, onClose }) => (
+  <motion.div
+    initial={{ opacity: 0, y: -50, scale: 0.9 }}
+    animate={{ opacity: 1, y: 0, scale: 1 }}
+    exit={{ opacity: 0, y: -20, scale: 0.9 }}
+    className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-4 py-3 bg-white border border-gray-200 rounded-xl shadow-lg"
+  >
+    <div className={`w-8 h-8 rounded-full flex items-center justify-center ${type === 'success' ? 'bg-green-100' : 'bg-red-100'}`}>
+      {type === 'success' ? (
+        <Check className="w-4 h-4 text-green-600" />
+      ) : (
+        <X className="w-4 h-4 text-red-600" />
+      )}
+    </div>
+    <div>
+      <p className="text-sm font-medium text-gray-900">{message}</p>
+    </div>
+    <button onClick={onClose} className="ml-2 text-gray-400 hover:text-gray-600">
+      <X className="w-4 h-4" />
+    </button>
+  </motion.div>
+)
 
 // Quick Action Button Component
 const ActionButton = ({ icon: Icon, label, href, onClick, testId }) => {
@@ -116,23 +94,144 @@ const ActionButton = ({ icon: Icon, label, href, onClick, testId }) => {
         {label}
       </span>
     </motion.div>
-  );
+  )
 
   if (href) {
     return (
       <a href={href} target={href.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer" className="block">
         {content}
       </a>
-    );
+    )
   }
 
-  return <button onClick={onClick} className="w-full">{content}</button>;
-};
+  return <button onClick={onClick} className="w-full">{content}</button>
+}
 
 export default function DigitalCard() {
+  const [toast, setToast] = useState(null)
+
+  const showToast = (message, type = 'success') => {
+    setToast({ message, type })
+    setTimeout(() => setToast(null), 3000)
+  }
+
+  // Download vCard - Cross-platform compatible (Android/iPhone/Desktop)
+  const downloadVCard = () => {
+    try {
+      const vCardContent = generateVCard()
+      const blob = new Blob([vCardContent], { type: 'text/vcard;charset=utf-8' })
+      const filename = `${CONTACT.name.replace(/\s+/g, '_')}_Bhumita_Petrochem.vcf`
+      
+      // Check if on iOS Safari
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
+      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+      
+      if (isIOS && isSafari) {
+        // iOS Safari: Use data URL approach
+        const reader = new FileReader()
+        reader.onload = () => {
+          const dataUrl = reader.result
+          const link = document.createElement('a')
+          link.href = dataUrl
+          link.download = filename
+          link.click()
+          showToast('Contact ready to save!')
+        }
+        reader.readAsDataURL(blob)
+      } else if (navigator.userAgent.match(/Android/i)) {
+        // Android: Try multiple methods
+        const url = URL.createObjectURL(blob)
+        
+        // Method 1: Try direct download
+        const link = document.createElement('a')
+        link.href = url
+        link.download = filename
+        link.style.display = 'none'
+        document.body.appendChild(link)
+        link.click()
+        
+        setTimeout(() => {
+          document.body.removeChild(link)
+          URL.revokeObjectURL(url)
+        }, 100)
+        
+        showToast('Contact saved! Check downloads.')
+      } else {
+        // Desktop browsers
+        const url = URL.createObjectURL(blob)
+        const link = document.createElement('a')
+        link.href = url
+        link.download = filename
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+        URL.revokeObjectURL(url)
+        showToast('Contact saved!')
+      }
+    } catch (error) {
+      console.error('vCard download error:', error)
+      showToast('Could not save contact', 'error')
+    }
+  }
+
+  // Share card functionality - Cross-platform
+  const shareCard = async () => {
+    const shareUrl = window.location.href
+    const shareData = {
+      title: `${CONTACT.name} - ${CONTACT.company}`,
+      text: `Digital Business Card for ${CONTACT.name}, ${CONTACT.title} at ${CONTACT.company}`,
+      url: shareUrl,
+    }
+
+    try {
+      // Check if Web Share API is available (mobile browsers)
+      if (navigator.share) {
+        await navigator.share(shareData)
+        showToast('Shared successfully!')
+      } else if (navigator.clipboard && navigator.clipboard.writeText) {
+        // Fallback: Copy to clipboard
+        await navigator.clipboard.writeText(shareUrl)
+        showToast('Link copied to clipboard!')
+      } else {
+        // Final fallback for older browsers
+        const textArea = document.createElement('textarea')
+        textArea.value = shareUrl
+        textArea.style.position = 'fixed'
+        textArea.style.opacity = '0'
+        document.body.appendChild(textArea)
+        textArea.focus()
+        textArea.select()
+        document.execCommand('copy')
+        document.body.removeChild(textArea)
+        showToast('Link copied to clipboard!')
+      }
+    } catch (error) {
+      if (error.name === 'AbortError') {
+        // User cancelled share - do nothing
+        return
+      }
+      // Try clipboard as fallback
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(shareUrl)
+          showToast('Link copied to clipboard!')
+        } else {
+          showToast('Share: ' + shareUrl, 'success')
+        }
+      } catch {
+        showToast('Share: ' + shareUrl, 'success')
+      }
+    }
+  }
+
   return (
     <div className="min-h-screen bg-white relative overflow-hidden flex items-center justify-center py-8 px-4">
-      {/* Decorative blue wave on right side */}
+      {/* Toast Notification */}
+      <AnimatePresence>
+        {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
+      </AnimatePresence>
+
+      {/* Decorative blue wave */}
       <div className="absolute right-0 top-0 bottom-0 w-1/3 overflow-hidden pointer-events-none">
         <svg viewBox="0 0 200 800" className="absolute right-0 h-full" preserveAspectRatio="none">
           <path d="M100,0 Q200,200 150,400 Q100,600 200,800 L200,800 L200,0 Z" fill="#0066CC" opacity="0.15"/>
@@ -140,7 +239,7 @@ export default function DigitalCard() {
         </svg>
       </div>
 
-      {/* Main Card Container */}
+      {/* Main Card */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -148,10 +247,10 @@ export default function DigitalCard() {
         className="w-full max-w-md bg-white border border-gray-200 rounded-2xl shadow-xl shadow-blue-100/50 overflow-hidden relative z-10"
         data-testid="digital-card"
       >
-        {/* Header with blue accent */}
+        {/* Blue accent bar */}
         <div className="h-1.5 bg-gradient-to-r from-[#0066CC] via-[#0088EE] to-[#0066CC]" />
         
-        <div className="p-8">
+        <div className="p-6 sm:p-8">
           {/* Header Section */}
           <motion.div variants={itemVariants} className="flex flex-col items-center text-center mb-8">
             {/* Logo */}
@@ -161,26 +260,21 @@ export default function DigitalCard() {
                 alt={`${CONTACT.company} Logo`}
                 className="w-full h-full object-contain"
                 data-testid="company-logo"
+                loading="eager"
               />
             </div>
             
             {/* Company Name */}
-            <h1 
-              className="font-bold text-2xl tracking-wide text-[#0066CC] mb-1"
-              data-testid="company-name"
-            >
+            <h1 className="font-bold text-2xl tracking-wide text-[#0066CC] mb-1" data-testid="company-name">
               {CONTACT.company}
             </h1>
             
             {/* Tagline */}
-            <p 
-              className="text-sm font-medium italic text-[#0066CC]/80 mb-6"
-              data-testid="tagline"
-            >
+            <p className="text-sm font-medium italic text-[#0066CC]/80 mb-6" data-testid="tagline">
               {CONTACT.tagline}
             </p>
             
-            {/* Elegant Divider - matching the image style */}
+            {/* Diamond Divider */}
             <div className="flex items-center gap-3 mb-6 w-full max-w-[200px]">
               <div className="flex-1 h-0.5 bg-[#0066CC]" />
               <div className="w-2 h-2 rotate-45 bg-[#0066CC]" />
@@ -188,16 +282,10 @@ export default function DigitalCard() {
             </div>
             
             {/* Contact Person */}
-            <h2 
-              className="text-xl font-semibold text-[#004499]"
-              data-testid="contact-name"
-            >
+            <h2 className="text-xl font-semibold text-[#004499]" data-testid="contact-name">
               {CONTACT.name}
             </h2>
-            <p 
-              className="text-sm text-gray-600 mt-1 font-medium"
-              data-testid="contact-title"
-            >
+            <p className="text-sm text-gray-600 mt-1 font-medium" data-testid="contact-title">
               {CONTACT.title}
             </p>
           </motion.div>
@@ -207,7 +295,7 @@ export default function DigitalCard() {
             <ActionButton
               icon={FaPhone}
               label="Call"
-              href={`tel:${CONTACT.phoneClean}`}
+              href={`tel:+${CONTACT.phoneClean}`}
               testId="call-button"
             />
             <ActionButton
@@ -282,5 +370,5 @@ export default function DigitalCard() {
         </div>
       </motion.div>
     </div>
-  );
+  )
 }
