@@ -108,11 +108,11 @@ const ActionButton = ({ icon: Icon, label, href, onClick, testId }) => {
     <motion.div
       whileHover={{ y: -2 }}
       whileTap={{ scale: 0.98 }}
-      className="flex flex-col items-center justify-center p-5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-amber-500/30 transition-all duration-300 group cursor-pointer h-full"
+      className="flex flex-col items-center justify-center p-5 rounded-xl bg-[#f0f7ff] border border-[#0066CC]/20 hover:bg-[#e0f0ff] hover:border-[#0066CC]/40 transition-all duration-300 group cursor-pointer h-full"
       data-testid={testId}
     >
-      <Icon className="w-6 h-6 text-slate-400 group-hover:text-amber-500 transition-colors duration-300 mb-2" />
-      <span className="text-sm font-medium text-slate-400 group-hover:text-white transition-colors duration-300">
+      <Icon className="w-6 h-6 text-[#0066CC] group-hover:text-[#004499] transition-colors duration-300 mb-2" />
+      <span className="text-sm font-medium text-[#0066CC] group-hover:text-[#004499] transition-colors duration-300">
         {label}
       </span>
     </motion.div>
@@ -131,32 +131,31 @@ const ActionButton = ({ icon: Icon, label, href, onClick, testId }) => {
 
 export default function DigitalCard() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 relative overflow-hidden flex items-center justify-center py-8 px-4">
-      {/* Subtle background pattern */}
-      <div className="absolute inset-0 opacity-[0.03]" style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-      }} />
-
-      {/* Gradient orbs for subtle depth */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-900/20 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-900/10 rounded-full blur-3xl" />
+    <div className="min-h-screen bg-white relative overflow-hidden flex items-center justify-center py-8 px-4">
+      {/* Decorative blue wave on right side */}
+      <div className="absolute right-0 top-0 bottom-0 w-1/3 overflow-hidden pointer-events-none">
+        <svg viewBox="0 0 200 800" className="absolute right-0 h-full" preserveAspectRatio="none">
+          <path d="M100,0 Q200,200 150,400 Q100,600 200,800 L200,800 L200,0 Z" fill="#0066CC" opacity="0.15"/>
+          <path d="M150,0 Q250,200 180,400 Q120,600 200,800 L200,800 L200,0 Z" fill="#004499" opacity="0.1"/>
+        </svg>
+      </div>
 
       {/* Main Card Container */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="w-full max-w-md bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden relative z-10"
+        className="w-full max-w-md bg-white border border-gray-200 rounded-2xl shadow-xl shadow-blue-100/50 overflow-hidden relative z-10"
         data-testid="digital-card"
       >
-        {/* Header with gradient accent */}
-        <div className="h-1.5 bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500" />
+        {/* Header with blue accent */}
+        <div className="h-1.5 bg-gradient-to-r from-[#0066CC] via-[#0088EE] to-[#0066CC]" />
         
         <div className="p-8">
           {/* Header Section */}
           <motion.div variants={itemVariants} className="flex flex-col items-center text-center mb-8">
             {/* Logo */}
-            <div className="w-20 h-20 rounded-xl bg-white p-2.5 mb-5 shadow-lg ring-1 ring-black/5">
+            <div className="w-20 h-20 rounded-xl bg-white p-2 mb-5 shadow-lg ring-1 ring-gray-100">
               <img 
                 src={CONTACT.logo} 
                 alt={`${CONTACT.company} Logo`}
@@ -167,7 +166,7 @@ export default function DigitalCard() {
             
             {/* Company Name */}
             <h1 
-              className="font-semibold text-2xl tracking-wide text-white mb-1"
+              className="font-bold text-2xl tracking-wide text-[#0066CC] mb-1"
               data-testid="company-name"
             >
               {CONTACT.company}
@@ -175,28 +174,28 @@ export default function DigitalCard() {
             
             {/* Tagline */}
             <p 
-              className="text-xs font-medium uppercase tracking-[0.15em] text-amber-500/90 mb-6"
+              className="text-sm font-medium italic text-[#0066CC]/80 mb-6"
               data-testid="tagline"
             >
               {CONTACT.tagline}
             </p>
             
-            {/* Elegant Divider */}
+            {/* Elegant Divider - matching the image style */}
             <div className="flex items-center gap-3 mb-6 w-full max-w-[200px]">
-              <div className="flex-1 h-px bg-gradient-to-r from-transparent to-white/20" />
-              <div className="w-1.5 h-1.5 rounded-full bg-amber-500/60" />
-              <div className="flex-1 h-px bg-gradient-to-l from-transparent to-white/20" />
+              <div className="flex-1 h-0.5 bg-[#0066CC]" />
+              <div className="w-2 h-2 rotate-45 bg-[#0066CC]" />
+              <div className="flex-1 h-0.5 bg-[#0066CC]" />
             </div>
             
             {/* Contact Person */}
             <h2 
-              className="text-xl font-medium text-white"
+              className="text-xl font-semibold text-[#004499]"
               data-testid="contact-name"
             >
               {CONTACT.name}
             </h2>
             <p 
-              className="text-sm text-slate-400 mt-1 font-medium"
+              className="text-sm text-gray-600 mt-1 font-medium"
               data-testid="contact-title"
             >
               {CONTACT.title}
@@ -238,7 +237,7 @@ export default function DigitalCard() {
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.99 }}
               onClick={downloadVCard}
-              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-900 font-semibold text-base hover:from-amber-400 hover:to-amber-500 shadow-lg shadow-amber-500/20 transition-all duration-300 flex justify-center items-center gap-2"
+              className="w-full py-3.5 rounded-xl bg-[#0066CC] text-white font-semibold text-base hover:bg-[#0055AA] shadow-lg shadow-blue-500/25 transition-all duration-300 flex justify-center items-center gap-2"
               data-testid="save-contact-button"
             >
               <Download className="w-4 h-4" />
@@ -250,7 +249,7 @@ export default function DigitalCard() {
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.99 }}
               onClick={shareCard}
-              className="w-full py-3.5 rounded-xl bg-white/5 border border-white/10 text-white font-semibold text-base hover:bg-white/10 transition-all duration-300 flex justify-center items-center gap-2"
+              className="w-full py-3.5 rounded-xl bg-white border-2 border-[#0066CC] text-[#0066CC] font-semibold text-base hover:bg-[#f0f7ff] transition-all duration-300 flex justify-center items-center gap-2"
               data-testid="share-card-button"
             >
               <Share2 className="w-4 h-4" />
@@ -259,11 +258,11 @@ export default function DigitalCard() {
           </motion.div>
 
           {/* Footer Info */}
-          <motion.div variants={itemVariants} className="pt-6 border-t border-white/10">
+          <motion.div variants={itemVariants} className="pt-6 border-t border-gray-200">
             <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm">
               {/* Location */}
-              <div className="flex items-center gap-2 text-slate-400" data-testid="location">
-                <MapPin className="w-4 h-4 text-amber-500/70" />
+              <div className="flex items-center gap-2 text-gray-600" data-testid="location">
+                <MapPin className="w-4 h-4 text-[#0066CC]" />
                 <span>{CONTACT.location}</span>
               </div>
               
@@ -272,10 +271,10 @@ export default function DigitalCard() {
                 href={`https://${CONTACT.website}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-slate-400 hover:text-amber-500 transition-colors duration-300"
+                className="flex items-center gap-2 text-gray-600 hover:text-[#0066CC] transition-colors duration-300"
                 data-testid="website-link"
               >
-                <Globe className="w-4 h-4 text-amber-500/70" />
+                <Globe className="w-4 h-4 text-[#0066CC]" />
                 <span>{CONTACT.website}</span>
               </a>
             </div>
