@@ -129,11 +129,13 @@ export default function DigitalCard() {
             </a>
           </div>
 
-          {/* QR Code placeholder area */}
-          <div className="absolute bottom-8 right-8 w-20 h-20 bg-white rounded-lg flex items-center justify-center opacity-90">
-            <svg className="w-16 h-16 text-[#0B3D91]" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M3 11h8V3H3v8zm2-6h4v4H5V5zm8-2v8h8V3h-8zm6 6h-4V5h4v4zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm13 2h-2v2h2v-2zm0-4h-2v2h2v-2zm2 0h-2v2h2v-2zm-2 4h-2v2h2v-2zm2 0h-2v2h2v-2zm0 2v2h2v-2h-2zm-6-2h2v-2h-2v2zm2 2h-2v2h2v-2z"/>
-            </svg>
+          {/* QR Code - links to website */}
+          <div className="absolute bottom-8 right-8 w-24 h-24 bg-white rounded-lg p-2">
+            <img 
+              src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://bhumitapetrochem.com"
+              alt="QR Code"
+              className="w-full h-full"
+            />
           </div>
         </div>
       </div>
