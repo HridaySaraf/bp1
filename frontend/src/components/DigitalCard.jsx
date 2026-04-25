@@ -1,4 +1,54 @@
 export default function DigitalCard() {
+  // Download vCard - Works on Android, iPhone, Desktop
+  const downloadVCard = () => {
+    const vCard = [
+      'BEGIN:VCARD',
+      'VERSION:3.0',
+      'N:Shah;Vivek;;;',
+      'FN:Vivek Shah',
+      'ORG:BHUMITA PETROCHEM',
+      'TITLE:Director',
+      'TEL;TYPE=CELL:+918828888283',
+      'TEL;TYPE=WORK:+918828888283',
+      'EMAIL;TYPE=WORK:info@bhumitapetrochem.com',
+      'URL:https://bhumitapetrochem.com',
+      'ADR;TYPE=WORK:;;Mumbai;;Maharashtra;;India',
+      'NOTE:Where purity meets performance - Suppliers of all brands of Diesel Exhaust Fluid (D.E.F.) AdBlue',
+      'END:VCARD'
+    ].join('\r\n')
+
+    const blob = new Blob([vCard], { type: 'text/vcard;charset=utf-8' })
+    const filename = 'Vivek_Shah_Bhumita_Petrochem.vcf'
+    
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+    
+    if (isIOS && isSafari) {
+      // iOS Safari: Use data URL
+      const reader = new FileReader()
+      reader.onload = () => {
+        const link = document.createElement('a')
+        link.href = reader.result
+        link.download = filename
+        link.click()
+      }
+      reader.readAsDataURL(blob)
+    } else {
+      // Android & Desktop
+      const url = URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = filename
+      link.style.display = 'none'
+      document.body.appendChild(link)
+      link.click()
+      setTimeout(() => {
+        document.body.removeChild(link)
+        URL.revokeObjectURL(url)
+      }, 100)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-md mx-auto min-h-screen flex flex-col shadow-2xl">
@@ -129,14 +179,18 @@ export default function DigitalCard() {
             </a>
           </div>
 
-          {/* QR Code */}
-          <div className="absolute bottom-6 right-6 w-28 h-28 bg-white rounded-lg p-1.5">
+          {/* QR Code - Clickable to Save Contact */}
+          <button 
+            onClick={downloadVCard}
+            className="absolute bottom-6 right-6 w-28 h-28 bg-white rounded-lg p-1.5 cursor-pointer hover:shadow-lg hover:scale-105 transition-all duration-200 active:scale-95 z-20"
+            title="Tap to save contact"
+          >
             <img 
               src="https://customer-assets.emergentagent.com/job_visitcard-hub/artifacts/py45ho5h_image.png"
-              alt="QR Code"
+              alt="Tap to save contact"
               className="w-full h-full object-contain"
             />
-          </div>
+          </button>
         </div>
       </div>
     </div>
