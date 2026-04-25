@@ -1,167 +1,14 @@
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { FaWhatsapp, FaInstagram, FaPhone, FaEnvelope } from 'react-icons/fa6'
-import { MapPin, Globe, Download, Share2, Check, X, QrCode } from 'lucide-react'
-
-// Contact Information - Vivek Shah
-const CONTACT = {
-  name: 'Vivek Shah',
-  title: 'Director',
-  company: 'BHUMITA PETROCHEM',
-  tagline: 'Where purity meets performance',
-  businessDescription: 'Suppliers of all brands of Diesel Exhaust Fluid (D.E.F.) AdBlue',
-  phone: '+91 882-8888-283',
-  phoneClean: '918828888283',
-  email: 'info@bhumitapetrochem.com',
-  website: 'bhumitapetrochem.com',
-  instagram: 'bhumitapetrochem',
-  instagramUrl: 'https://www.instagram.com/bhumitapetrochem',
-  location: 'Mumbai, India',
-  logo: 'https://customer-assets.emergentagent.com/job_visitcard-hub/artifacts/zqt8r0fa_image.png',
-}
-
-// Generate vCard - Cross-platform compatible
-const generateVCard = () => {
-  return [
-    'BEGIN:VCARD',
-    'VERSION:3.0',
-    `N:${CONTACT.name.split(' ').reverse().join(';')};;;`,
-    `FN:${CONTACT.name}`,
-    `ORG:${CONTACT.company}`,
-    `TITLE:${CONTACT.title}`,
-    `TEL;TYPE=CELL:+${CONTACT.phoneClean}`,
-    `TEL;TYPE=WORK:+${CONTACT.phoneClean}`,
-    `EMAIL;TYPE=WORK:${CONTACT.email}`,
-    `URL:https://${CONTACT.website}`,
-    `ADR;TYPE=WORK:;;Mumbai;;Maharashtra;;India`,
-    `NOTE:${CONTACT.tagline} - ${CONTACT.businessDescription}`,
-    'END:VCARD'
-  ].join('\r\n')
-}
-
-// Toast Component
-const Toast = ({ message, type, onClose }) => (
-  <motion.div
-    initial={{ opacity: 0, y: -50, scale: 0.9 }}
-    animate={{ opacity: 1, y: 0, scale: 1 }}
-    exit={{ opacity: 0, y: -20, scale: 0.9 }}
-    className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-4 py-3 bg-white border border-gray-200 rounded-xl shadow-lg"
-  >
-    <div className={`w-8 h-8 rounded-full flex items-center justify-center ${type === 'success' ? 'bg-green-100' : 'bg-red-100'}`}>
-      {type === 'success' ? <Check className="w-4 h-4 text-green-600" /> : <X className="w-4 h-4 text-red-600" />}
-    </div>
-    <p className="text-sm font-medium text-gray-900">{message}</p>
-    <button onClick={onClose} className="ml-2 text-gray-400 hover:text-gray-600">
-      <X className="w-4 h-4" />
-    </button>
-  </motion.div>
-)
-
 export default function DigitalCard() {
-  const [toast, setToast] = useState(null)
-
-  const showToast = (message, type = 'success') => {
-    setToast({ message, type })
-    setTimeout(() => setToast(null), 3000)
-  }
-
-  // Download vCard - Works on Android, iPhone, Desktop
-  const downloadVCard = () => {
-    try {
-      const vCardContent = generateVCard()
-      const blob = new Blob([vCardContent], { type: 'text/vcard;charset=utf-8' })
-      const filename = `${CONTACT.name.replace(/\s+/g, '_')}_Bhumita_Petrochem.vcf`
-      
-      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
-      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
-      
-      if (isIOS && isSafari) {
-        const reader = new FileReader()
-        reader.onload = () => {
-          const link = document.createElement('a')
-          link.href = reader.result
-          link.download = filename
-          link.click()
-          showToast('Contact ready to save!')
-        }
-        reader.readAsDataURL(blob)
-      } else {
-        const url = URL.createObjectURL(blob)
-        const link = document.createElement('a')
-        link.href = url
-        link.download = filename
-        link.style.display = 'none'
-        document.body.appendChild(link)
-        link.click()
-        setTimeout(() => {
-          document.body.removeChild(link)
-          URL.revokeObjectURL(url)
-        }, 100)
-        showToast('Contact saved!')
-      }
-    } catch (error) {
-      showToast('Could not save contact', 'error')
-    }
-  }
-
-  // Share card - Cross-platform
-  const shareCard = async () => {
-    const shareUrl = window.location.href
-    const shareData = {
-      title: `${CONTACT.name} - ${CONTACT.company}`,
-      text: `Digital Business Card for ${CONTACT.name}, ${CONTACT.title} at ${CONTACT.company}`,
-      url: shareUrl,
-    }
-
-    try {
-      if (navigator.share) {
-        await navigator.share(shareData)
-        showToast('Shared successfully!')
-      } else if (navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(shareUrl)
-        showToast('Link copied!')
-      } else {
-        const textArea = document.createElement('textarea')
-        textArea.value = shareUrl
-        textArea.style.cssText = 'position:fixed;opacity:0'
-        document.body.appendChild(textArea)
-        textArea.select()
-        document.execCommand('copy')
-        document.body.removeChild(textArea)
-        showToast('Link copied!')
-      }
-    } catch (error) {
-      if (error.name !== 'AbortError') {
-        try {
-          await navigator.clipboard?.writeText(shareUrl)
-          showToast('Link copied!')
-        } catch {
-          showToast('Copy this link: ' + shareUrl)
-        }
-      }
-    }
-  }
-
   return (
     <div className="min-h-screen bg-white">
-      {/* Toast */}
-      <AnimatePresence>
-        {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
-      </AnimatePresence>
-
-      {/* Card Container */}
       <div className="max-w-md mx-auto min-h-screen flex flex-col shadow-2xl">
         
         {/* ===== TOP SECTION - White Background ===== */}
-        <motion.div 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-white px-8 pt-10 pb-8 flex flex-col items-center text-center relative"
-        >
+        <div className="bg-white px-8 pt-12 pb-10 flex flex-col items-center text-center">
           {/* Logo */}
-          <div className="w-24 h-24 mb-6">
+          <div className="w-28 h-28 mb-6">
             <img 
-              src={CONTACT.logo} 
+              src="https://customer-assets.emergentagent.com/job_visitcard-hub/artifacts/zqt8r0fa_image.png" 
               alt="Bhumita Petrochem Logo"
               className="w-full h-full object-contain"
             />
@@ -169,160 +16,126 @@ export default function DigitalCard() {
 
           {/* Company Name */}
           <h1 className="text-[#0B3D91] text-2xl font-bold tracking-wide mb-2">
-            {CONTACT.company}
+            BHUMITA PETROCHEM
           </h1>
 
           {/* Tagline */}
-          <p className="text-[#0B3D91] text-sm italic mb-6">
-            {CONTACT.tagline}
+          <p className="text-[#0B3D91] text-sm italic mb-8">
+            Where purity meets performance
           </p>
 
           {/* Divider */}
-          <div className="flex items-center gap-3 mb-6 w-48">
+          <div className="flex items-center gap-3 mb-8 w-48">
             <div className="flex-1 h-0.5 bg-[#0B3D91]" />
             <div className="w-2 h-2 rotate-45 bg-[#0B3D91]" />
             <div className="flex-1 h-0.5 bg-[#0B3D91]" />
           </div>
 
           {/* Business Description */}
-          <p className="text-[#0B3D91] text-sm font-medium">
-            {CONTACT.businessDescription}
+          <p className="text-[#0B3D91] text-sm">
+            Suppliers of all brands of Diesel Exhaust Fluid (D.E.F.) AdBlue
           </p>
-        </motion.div>
+        </div>
 
         {/* ===== CURVED TRANSITION ===== */}
-        <div className="relative h-16 bg-white">
+        <div className="relative h-20 bg-white">
           <svg 
-            viewBox="0 0 400 60" 
+            viewBox="0 0 400 80" 
             className="absolute bottom-0 w-full h-full"
             preserveAspectRatio="none"
           >
             <path 
-              d="M0,60 L0,30 Q100,0 200,20 Q300,40 400,10 L400,60 Z" 
+              d="M0,80 L0,50 Q100,10 200,30 Q300,50 400,20 L400,80 Z" 
               fill="#0B3D91"
             />
             <path 
-              d="M0,60 L0,45 Q100,20 200,35 Q300,50 400,25 L400,60 Z" 
+              d="M0,80 L0,60 Q100,30 200,45 Q300,60 400,35 L400,80 Z" 
               fill="#1565C0"
             />
           </svg>
         </div>
 
         {/* ===== BOTTOM SECTION - Blue Background ===== */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="bg-[#0B3D91] px-8 pt-6 pb-10 flex-1 relative"
-        >
-          {/* Decorative curved line */}
-          <div className="absolute top-0 right-0 w-1/2 h-full overflow-hidden pointer-events-none opacity-20">
-            <svg viewBox="0 0 200 400" className="h-full" preserveAspectRatio="none">
-              <path d="M200,0 Q100,100 150,200 Q200,300 100,400 L200,400 L200,0 Z" fill="#1565C0"/>
+        <div className="bg-[#0B3D91] px-8 pt-8 pb-12 flex-1 relative">
+          {/* Decorative curved accent */}
+          <div className="absolute top-0 right-0 w-1/2 h-full overflow-hidden pointer-events-none opacity-30">
+            <svg viewBox="0 0 200 500" className="h-full" preserveAspectRatio="none">
+              <path d="M200,0 Q80,125 150,250 Q220,375 100,500 L200,500 L200,0 Z" fill="#1565C0"/>
             </svg>
           </div>
 
           {/* Contact Person */}
-          <div className="text-center mb-8 relative z-10">
-            <h2 className="text-white text-2xl font-bold mb-1">{CONTACT.name}</h2>
-            <p className="text-blue-200 text-sm font-medium">{CONTACT.title}</p>
+          <div className="text-center mb-10 relative z-10">
+            <h2 className="text-white text-2xl font-bold mb-1">Vivek Shah</h2>
+            <p className="text-blue-200 text-sm">Director</p>
           </div>
 
-          {/* Contact Links */}
-          <div className="space-y-4 mb-8 relative z-10">
-            {/* Phone - Clickable */}
+          {/* Contact Info */}
+          <div className="space-y-5 relative z-10">
+            {/* Phone */}
             <a 
-              href={`tel:+${CONTACT.phoneClean}`}
-              className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors group"
+              href="tel:+918828888283"
+              className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors"
             >
-              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors">
-                <FaPhone className="w-4 h-4" />
-              </div>
-              <span className="text-sm font-medium">{CONTACT.phone}</span>
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+              </svg>
+              <span className="text-sm">+91 882-8888-283</span>
             </a>
 
-            {/* WhatsApp - Clickable */}
+            {/* Email */}
             <a 
-              href={`https://wa.me/${CONTACT.phoneClean}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors group"
+              href="mailto:info@bhumitapetrochem.com"
+              className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors"
             >
-              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors">
-                <FaWhatsapp className="w-4 h-4" />
-              </div>
-              <span className="text-sm font-medium">WhatsApp</span>
-            </a>
-
-            {/* Email - Clickable */}
-            <a 
-              href={`mailto:${CONTACT.email}`}
-              className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors group"
-            >
-              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors">
-                <FaEnvelope className="w-4 h-4" />
-              </div>
-              <span className="text-sm font-medium">{CONTACT.email}</span>
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+              </svg>
+              <span className="text-sm">info@bhumitapetrochem.com</span>
             </a>
 
             {/* Location */}
             <div className="flex items-center gap-4 text-white">
-              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
-                <MapPin className="w-4 h-4" />
-              </div>
-              <span className="text-sm font-medium">{CONTACT.location}</span>
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+              </svg>
+              <span className="text-sm">Mumbai, India</span>
             </div>
 
-            {/* Instagram - Clickable */}
+            {/* Instagram */}
             <a 
-              href={CONTACT.instagramUrl}
+              href="https://www.instagram.com/bhumitapetrochem"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors group"
+              className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors"
             >
-              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors">
-                <FaInstagram className="w-4 h-4" />
-              </div>
-              <span className="text-sm font-medium">@{CONTACT.instagram}</span>
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+              <span className="text-sm">@bhumitapetrochem</span>
             </a>
 
-            {/* Website - Clickable */}
+            {/* Website */}
             <a 
-              href={`https://${CONTACT.website}`}
+              href="https://bhumitapetrochem.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors group"
+              className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors"
             >
-              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors">
-                <Globe className="w-4 h-4" />
-              </div>
-              <span className="text-sm font-medium">{CONTACT.website}</span>
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+              </svg>
+              <span className="text-sm">bhumitapetrochem.com</span>
             </a>
           </div>
 
-          {/* Action Buttons */}
-          <div className="space-y-3 relative z-10">
-            {/* Save Contact */}
-            <motion.button
-              whileTap={{ scale: 0.98 }}
-              onClick={downloadVCard}
-              className="w-full py-3.5 rounded-xl bg-white text-[#0B3D91] font-semibold text-sm hover:bg-blue-50 transition-colors flex justify-center items-center gap-2"
-            >
-              <Download className="w-4 h-4" />
-              Save Contact
-            </motion.button>
-
-            {/* Share Card */}
-            <motion.button
-              whileTap={{ scale: 0.98 }}
-              onClick={shareCard}
-              className="w-full py-3.5 rounded-xl bg-transparent border-2 border-white text-white font-semibold text-sm hover:bg-white/10 transition-colors flex justify-center items-center gap-2"
-            >
-              <Share2 className="w-4 h-4" />
-              Share Card
-            </motion.button>
+          {/* QR Code placeholder area */}
+          <div className="absolute bottom-8 right-8 w-20 h-20 bg-white rounded-lg flex items-center justify-center opacity-90">
+            <svg className="w-16 h-16 text-[#0B3D91]" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M3 11h8V3H3v8zm2-6h4v4H5V5zm8-2v8h8V3h-8zm6 6h-4V5h4v4zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm13 2h-2v2h2v-2zm0-4h-2v2h2v-2zm2 0h-2v2h2v-2zm-2 4h-2v2h2v-2zm2 0h-2v2h2v-2zm0 2v2h2v-2h-2zm-6-2h2v-2h-2v2zm2 2h-2v2h2v-2z"/>
+            </svg>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   )
