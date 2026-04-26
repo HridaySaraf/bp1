@@ -114,7 +114,9 @@ export default function DigitalCard() {
 
           {/* Contact Person */}
           <div className="text-center mb-10 relative z-10">
-            <h2 className="text-white text-3xl font-bold mb-2">Vivek Shah</h2>
+            <h2 className="text-white text-4xl md:text-5xl font-bold font-[Montserrat] tracking-wide mb-2">
+  Vivek Shah
+</h2>
             <p className="text-blue-200 text-lg">Director</p>
           </div>
 
