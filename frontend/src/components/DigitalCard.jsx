@@ -106,7 +106,7 @@ export default function DigitalCard() {
         {/* ===== BOTTOM SECTION - Blue Background ===== */}
         <div className="bg-[#0B3D91] px-8 pt-8 pb-20 md:pb-12 flex-1 relative">
           {/* Decorative curved accent */}
-          <div className="absolute top-0 right-0 w-1/2 h-full overflow-hidden pointer-events-none opacity-30">
+          <div className="absolute top-0 right-0 w-1/3 md:w-1/4 h-full overflow-hidden pointer-events-none opacity-30">
             <svg viewBox="0 0 200 500" className="h-full" preserveAspectRatio="none">
               <path d="M200,0 Q80,125 150,250 Q220,375 100,500 L200,500 L200,0 Z" fill="#1565C0"/>
             </svg>
