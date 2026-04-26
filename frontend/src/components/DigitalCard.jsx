@@ -182,7 +182,7 @@ export default function DigitalCard() {
           {/* QR Code - Clickable to Save Contact */}
           <button 
             onClick={downloadVCard}
-            className="relative mx-auto mt-8 block w-28 h-28 bg-white rounded-lg p-1.5 cursor-pointer hover:shadow-lg hover:scale-105 transition-all duration-200 active:scale-95 z-20 md:absolute md:bottom-6 md:right-6 md:mx-0 md:mt-0"
+            className="relative mx-auto mt-8 block w-28 h-28 bg-white rounded-lg p-1.5 cursor-pointer hover:shadow-lg hover:scale-105 transition-all duration-200 active:scale-95 z-20 md:absolute md:bottom-10 md:right-6 md:mx-0 md:mt-0"
             title="Tap to save contact"
           >
             <img 
@@ -191,6 +191,9 @@ export default function DigitalCard() {
               className="w-full h-full object-contain"
             />
           </button>
+          <p className="text-[10px] text-white text-center mt-2 md:absolute md:bottom-3 md:right-6 md:w-28 whitespace-nowrap">
+  Tap QR to Save Contact
+</p>
         </div>
       </div>
     </div>
