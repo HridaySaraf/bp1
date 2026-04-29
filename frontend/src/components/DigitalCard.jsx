@@ -8,6 +8,7 @@ export default function DigitalCard() {
       'ORG:BHUMITA PETROCHEM',
       'TITLE:Director',
       'TEL;TYPE=CELL:+918828888283',
+      'TEL;TYPE=WORK:+918828888283',
       'EMAIL;TYPE=WORK:info@bhumitapetrochem.com',
       'URL:https://bhumitapetrochem.com',
       'ADR;TYPE=WORK:;;Mumbai;;Maharashtra;;India',
@@ -38,6 +39,7 @@ export default function DigitalCard() {
       link.style.display = 'none';
       document.body.appendChild(link);
       link.click();
+
       setTimeout(() => {
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
@@ -48,8 +50,6 @@ export default function DigitalCard() {
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-md mx-auto min-h-screen flex flex-col shadow-2xl">
-
-        {/* TOP SECTION */}
         <div className="bg-white px-8 pt-12 pb-10 flex flex-col items-center text-center">
           <div className="w-32 h-32 mb-6">
             <img
@@ -78,23 +78,30 @@ export default function DigitalCard() {
           </p>
         </div>
 
-        {/* CURVED TRANSITION */}
         <div className="relative h-20 bg-white">
           <svg
             viewBox="0 0 400 80"
             className="absolute bottom-0 w-full h-full"
             preserveAspectRatio="none"
           >
-            <path d="M0,80 L0,50 Q100,10 200,30 Q300,50 400,20 L400,80 Z" fill="#0B3D91" />
-            <path d="M0,80 L0,60 Q100,30 200,45 Q300,60 400,35 L400,80 Z" fill="#1565C0" />
+            <path
+              d="M0,80 L0,50 Q100,10 200,30 Q300,50 400,20 L400,80 Z"
+              fill="#0B3D91"
+            />
+            <path
+              d="M0,80 L0,60 Q100,30 200,45 Q300,60 400,35 L400,80 Z"
+              fill="#1565C0"
+            />
           </svg>
         </div>
 
-        {/* BOTTOM SECTION */}
         <div className="bg-[#0B3D91] px-8 pt-8 pb-20 md:pb-12 flex-1 relative">
           <div className="absolute top-0 right-0 w-1/3 md:w-1/4 h-full opacity-30 pointer-events-none">
             <svg viewBox="0 0 200 500" className="h-full" preserveAspectRatio="none">
-              <path d="M200,0 Q80,125 150,250 Q220,375 100,500 L200,500 L200,0 Z" fill="#1565C0" />
+              <path
+                d="M200,0 Q80,125 150,250 Q220,375 100,500 L200,500 L200,0 Z"
+                fill="#1565C0"
+              />
             </svg>
           </div>
 
@@ -106,8 +113,7 @@ export default function DigitalCard() {
           </div>
 
           <div className="space-y-5 relative z-10">
-
-            
+            <a
               href="tel:+918828888283"
               className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors"
             >
@@ -117,7 +123,7 @@ export default function DigitalCard() {
               <span className="text-base">+91 882-8888-283</span>
             </a>
 
-            
+            <a
               href="mailto:info@bhumitapetrochem.com"
               className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors"
             >
@@ -142,7 +148,7 @@ export default function DigitalCard() {
               <span className="text-base">Mumbai, India</span>
             </div>
 
-            
+            <a
               href="https://wa.me/918828888283"
               target="_blank"
               rel="noopener noreferrer"
@@ -151,14 +157,14 @@ export default function DigitalCard() {
               <svg className="w-6 h-6" viewBox="0 0 24 24">
                 <circle cx="12" cy="12" r="10" fill="#25D366" />
                 <path
-                  d="M16.75 13.96c.25.13 1.47.72 1.69.85.23.11.38.17.44.27.05.11.05.62-.14 1.22-.2.59-1.13 1.16-1.56 1.22-.4.06-.91.09-1.47-.09-.34-.11-.78-.25-1.34-.49-2.36-1.02-3.9-3.39-4.02-3.55-.11-.17-.96-1.28-.96-2.44 0-1.16.61-1.73.82-1.97.22-.25.48-.31.65-.31.16 0 .33 0 .47.01.15 0 .35-.06.55.42.19.47.65 1.63.71 1.75.05.13.09.27.02.44-.07.16-.11.27-.22.41-.11.13-.23.29-.33.39.12.11.23.23.35.45.13.22.57.94 1.23 1.52z"
+                  d="M16.75 13.96c.25.13 1.47.72 1.69.85.23.11.38.17.44.27.05.11.05.62-.14 1.22-.2.59-1.13 1.16-1.56 1.22-.4.06-.91.09-1.47-.09-.34-.11-.78-.25-1.34-.49-2.36-1.02-3.9-3.39-4.02-3.55-.11-.17-.96-1.28-.96-2.44 0-1.16.61-1.73.82-1.97.22-.25.48-.31.65-.31.16 0 .33 0 .47.01.15 0 .35-.06.55.42.19.47.65 1.63.71 1.75.05.13.09.27.02.44-.07.16-.11.27-.22.41-.11.13-.23.29-.33.39-.11.11-.22.23-.09.45.13.22.58.95 1.24 1.53.86.77 1.58 1.01 1.8 1.12.22.11.35.09.48-.05.13-.14.55-.64.69-.86.15-.22.29-.18.49-.11z"
                   fill="white"
                 />
               </svg>
               <span className="text-base">+91 882-8888-283</span>
             </a>
 
-            
+            <a
               href="https://www.instagram.com/bhumitapetrochem"
               target="_blank"
               rel="noopener noreferrer"
@@ -181,7 +187,7 @@ export default function DigitalCard() {
               <span className="text-base">@bhumitapetrochem</span>
             </a>
 
-            
+            <a
               href="https://bhumitapetrochem.com"
               target="_blank"
               rel="noopener noreferrer"
@@ -195,7 +201,6 @@ export default function DigitalCard() {
               </svg>
               <span className="text-base">bhumitapetrochem.com</span>
             </a>
-
           </div>
 
           <button
@@ -209,6 +214,7 @@ export default function DigitalCard() {
               className="w-full h-full object-contain"
             />
           </button>
+
           <p className="text-[10px] text-white text-center mt-2 md:absolute md:bottom-3 md:right-6 md:w-28 whitespace-nowrap">
             Tap QR to Save Contact
           </p>
