@@ -84,14 +84,8 @@ export default function DigitalCard() {
             className="absolute bottom-0 w-full h-full"
             preserveAspectRatio="none"
           >
-            <path
-              d="M0,80 L0,50 Q100,10 200,30 Q300,50 400,20 L400,80 Z"
-              fill="#0B3D91"
-            />
-            <path
-              d="M0,80 L0,60 Q100,30 200,45 Q300,60 400,35 L400,80 Z"
-              fill="#1565C0"
-            />
+            <path d="M0,80 L0,50 Q100,10 200,30 Q300,50 400,20 L400,80 Z" fill="#0B3D91" />
+            <path d="M0,80 L0,60 Q100,30 200,45 Q300,60 400,35 L400,80 Z" fill="#1565C0" />
           </svg>
         </div>
 
@@ -113,90 +107,33 @@ export default function DigitalCard() {
           </div>
 
           <div className="space-y-5 relative z-10">
-            <a
-              href="tel:+918828888283"
-              className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors"
-            >
-              <svg className="w-6 h-6" viewBox="0 0 24 24" fill="#4FC3F7">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2c-8.11-.36-14.16-6.4-14.51-14.51A2 2 0 0 1 7.31 2h3a2 2 0 0 1 2 1.72c.1 1 .27 2 .57 3a2 2 0 0 1-.45 2.11L9.91 9.09a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-              </svg>
+            <a href="tel:+918828888283" className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors">
+              <img src="https://cdn-icons-png.flaticon.com/512/724/724664.png" alt="Phone" className="w-6 h-6 object-contain" />
               <span className="text-base">+91 882-8888-283</span>
             </a>
 
-            <a
-              href="mailto:info@bhumitapetrochem.com"
-              className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors"
-            >
-              <svg className="w-6 h-6" viewBox="0 0 24 24" fill="#EA4335">
-                <rect x="2" y="4" width="20" height="16" rx="2" />
-                <path
-                  d="M22 6L12 13 2 6"
-                  stroke="white"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+            <a href="mailto:info@bhumitapetrochem.com" className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors">
+              <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email" className="w-6 h-6 object-contain" />
               <span className="text-base">info@bhumitapetrochem.com</span>
             </a>
 
             <div className="flex items-center gap-4 text-white">
-              <svg className="w-6 h-6" viewBox="0 0 24 24" fill="#F44336">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
-                <circle cx="12" cy="9" r="2.5" fill="white" />
-              </svg>
+              <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Location" className="w-6 h-6 object-contain" />
               <span className="text-base">Mumbai, India</span>
             </div>
 
-            <a
-  href="https://wa.me/918828888283"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors"
->
-  <img
-    src="https://cdn-icons-png.flaticon.com/512/733/733585.png"
-    alt="WhatsApp"
-    className="w-6 h-6 object-contain"
-  />
-  <span className="text-base">+91 882-8888-283</span>
-</a>
+            <a href="https://wa.me/918828888283" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors">
+              <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" className="w-6 h-6 object-contain" />
+              <span className="text-base">+91 882-8888-283</span>
+            </a>
 
-            <a
-              href="https://www.instagram.com/bhumitapetrochem"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors"
-            >
-              <svg className="w-6 h-6" viewBox="0 0 24 24">
-                <defs>
-                  <linearGradient id="igGradient" x1="0%" y1="100%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#FFDC80" />
-                    <stop offset="25%" stopColor="#F77737" />
-                    <stop offset="50%" stopColor="#E1306C" />
-                    <stop offset="75%" stopColor="#C13584" />
-                    <stop offset="100%" stopColor="#833AB4" />
-                  </linearGradient>
-                </defs>
-                <rect x="2" y="2" width="20" height="20" rx="5" fill="url(#igGradient)" />
-                <circle cx="12" cy="12" r="4" stroke="white" strokeWidth="2" fill="none" />
-                <circle cx="17.5" cy="6.5" r="1.5" fill="white" />
-              </svg>
+            <a href="https://www.instagram.com/bhumitapetrochem" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors">
+              <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" className="w-6 h-6 object-contain" />
               <span className="text-base">@bhumitapetrochem</span>
             </a>
 
-            <a
-              href="https://bhumitapetrochem.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors"
-            >
-              <svg className="w-6 h-6" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="10" fill="#4285F4" />
-                <ellipse cx="12" cy="12" rx="4" ry="10" stroke="white" strokeWidth="1.5" fill="none" />
-                <line x1="2" y1="12" x2="22" y2="12" stroke="white" strokeWidth="1.5" />
-                <path d="M4 7h16M4 17h16" stroke="white" strokeWidth="1" opacity="0.7" />
-              </svg>
+            <a href="https://bhumitapetrochem.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors">
+              <img src="https://cdn-icons-png.flaticon.com/512/1006/1006771.png" alt="Website" className="w-6 h-6 object-contain" />
               <span className="text-base">bhumitapetrochem.com</span>
             </a>
           </div>
