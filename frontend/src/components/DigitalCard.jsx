@@ -49,7 +49,7 @@ export default function DigitalCard() {
     <div className="min-h-screen bg-white">
       <div className="max-w-md mx-auto min-h-screen flex flex-col shadow-2xl">
 
-        {/* ===== TOP SECTION ===== */}
+        {/* TOP SECTION */}
         <div className="bg-white px-8 pt-12 pb-10 flex flex-col items-center text-center">
           <div className="w-32 h-32 mb-6">
             <img
@@ -78,7 +78,7 @@ export default function DigitalCard() {
           </p>
         </div>
 
-        {/* ===== CURVED TRANSITION ===== */}
+        {/* CURVED TRANSITION */}
         <div className="relative h-20 bg-white">
           <svg
             viewBox="0 0 400 80"
@@ -90,7 +90,7 @@ export default function DigitalCard() {
           </svg>
         </div>
 
-        {/* ===== BOTTOM SECTION ===== */}
+        {/* BOTTOM SECTION */}
         <div className="bg-[#0B3D91] px-8 pt-8 pb-20 md:pb-12 flex-1 relative">
           <div className="absolute top-0 right-0 w-1/3 md:w-1/4 h-full opacity-30 pointer-events-none">
             <svg viewBox="0 0 200 500" className="h-full" preserveAspectRatio="none">
@@ -105,10 +105,8 @@ export default function DigitalCard() {
             <p className="text-blue-200 text-lg">Director</p>
           </div>
 
-          {/* ===== CONTACT INFO ===== */}
           <div className="space-y-5 relative z-10">
 
-            {/* Phone */}
             
               href="tel:+918828888283"
               className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors"
@@ -119,7 +117,6 @@ export default function DigitalCard() {
               <span className="text-base">+91 882-8888-283</span>
             </a>
 
-            {/* Email */}
             
               href="mailto:info@bhumitapetrochem.com"
               className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors"
@@ -137,7 +134,6 @@ export default function DigitalCard() {
               <span className="text-base">info@bhumitapetrochem.com</span>
             </a>
 
-            {/* Location */}
             <div className="flex items-center gap-4 text-white">
               <svg className="w-6 h-6" viewBox="0 0 24 24" fill="#F44336">
                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
@@ -146,7 +142,6 @@ export default function DigitalCard() {
               <span className="text-base">Mumbai, India</span>
             </div>
 
-            {/* WhatsApp */}
             
               href="https://wa.me/918828888283"
               target="_blank"
@@ -163,7 +158,6 @@ export default function DigitalCard() {
               <span className="text-base">+91 882-8888-283</span>
             </a>
 
-            {/* Instagram */}
             
               href="https://www.instagram.com/bhumitapetrochem"
               target="_blank"
@@ -187,7 +181,6 @@ export default function DigitalCard() {
               <span className="text-base">@bhumitapetrochem</span>
             </a>
 
-            {/* Website */}
             
               href="https://bhumitapetrochem.com"
               target="_blank"
@@ -202,9 +195,9 @@ export default function DigitalCard() {
               </svg>
               <span className="text-base">bhumitapetrochem.com</span>
             </a>
+
           </div>
 
-          {/* QR Code */}
           <button
             onClick={downloadVCard}
             className="relative mx-auto mt-8 block w-28 h-28 bg-white rounded-lg p-1.5 cursor-pointer hover:shadow-lg hover:scale-105 transition-all active:scale-95 z-20 md:absolute md:bottom-10 md:right-6"
