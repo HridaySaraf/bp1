@@ -1,5 +1,4 @@
 export default function DigitalCard() {
-  // Download vCard - Works on Android, iPhone, Desktop
   const downloadVCard = () => {
     const vCard = [
       'BEGIN:VCARD',
@@ -10,7 +9,7 @@ export default function DigitalCard() {
       'TITLE:Director',
       'TEL;TYPE=CELL:+918828888283',
       'EMAIL;TYPE=WORK:info@bhumitapetrochem.com',
-      'URL:[bhumitapetrochem.com](https://bhumitapetrochem.com)',
+      'URL:https://bhumitapetrochem.com',
       'ADR;TYPE=WORK:;;Mumbai;;Maharashtra;;India',
       'NOTE:Where purity meets performance - Suppliers of all brands of Diesel Exhaust Fluid (D.E.F.) AdBlue',
       'END:VCARD',
@@ -54,7 +53,7 @@ export default function DigitalCard() {
         <div className="bg-white px-8 pt-12 pb-10 flex flex-col items-center text-center">
           <div className="w-32 h-32 mb-6">
             <img
-              src="[customer-assets.emergentagent.com](https://customer-assets.emergentagent.com/job_visitcard-hub/artifacts/8az27j1r_bHumika%20logo.png)"
+              src="https://customer-assets.emergentagent.com/job_visitcard-hub/artifacts/8az27j1r_bHumika%20logo.png"
               alt="Bhumita Petrochem Logo"
               className="w-full h-full object-contain"
             />
@@ -110,7 +109,7 @@ export default function DigitalCard() {
           <div className="space-y-5 relative z-10">
 
             {/* Phone */}
-            <a
+            
               href="tel:+918828888283"
               className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors"
             >
@@ -121,7 +120,7 @@ export default function DigitalCard() {
             </a>
 
             {/* Email */}
-            <a
+            
               href="mailto:info@bhumitapetrochem.com"
               className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors"
             >
@@ -148,8 +147,8 @@ export default function DigitalCard() {
             </div>
 
             {/* WhatsApp */}
-            <a
-              href="[wa.me](https://wa.me/918828888283)"
+            
+              href="https://wa.me/918828888283"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors"
@@ -165,8 +164,8 @@ export default function DigitalCard() {
             </a>
 
             {/* Instagram */}
-            <a
-              href="[instagram.com](https://www.instagram.com/bhumitapetrochem)"
+            
+              href="https://www.instagram.com/bhumitapetrochem"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors"
@@ -189,8 +188,8 @@ export default function DigitalCard() {
             </a>
 
             {/* Website */}
-            <a
-              href="[bhumitapetrochem.com](https://bhumitapetrochem.com)"
+            
+              href="https://bhumitapetrochem.com"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors"
@@ -212,7 +211,7 @@ export default function DigitalCard() {
             title="Tap to save contact"
           >
             <img
-              src="[customer-assets.emergentagent.com](https://customer-assets.emergentagent.com/job_visitcard-hub/artifacts/py45ho5h_image.png)"
+              src="https://customer-assets.emergentagent.com/job_visitcard-hub/artifacts/py45ho5h_image.png"
               alt="Tap to save contact"
               className="w-full h-full object-contain"
             />
