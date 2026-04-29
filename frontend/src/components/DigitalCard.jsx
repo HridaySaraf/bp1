@@ -149,20 +149,18 @@ export default function DigitalCard() {
             </div>
 
             <a
-              href="https://wa.me/918828888283"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors"
-            >
-              <svg className="w-6 h-6" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="10" fill="#25D366" />
-                <path
-                  d="M16.75 13.96c.25.13 1.47.72 1.69.85.23.11.38.17.44.27.05.11.05.62-.14 1.22-.2.59-1.13 1.16-1.56 1.22-.4.06-.91.09-1.47-.09-.34-.11-.78-.25-1.34-.49-2.36-1.02-3.9-3.39-4.02-3.55-.11-.17-.96-1.28-.96-2.44 0-1.16.61-1.73.82-1.97.22-.25.48-.31.65-.31.16 0 .33 0 .47.01.15 0 .35-.06.55.42.19.47.65 1.63.71 1.75.05.13.09.27.02.44-.07.16-.11.27-.22.41-.11.13-.23.29-.33.39-.11.11-.22.23-.09.45.13.22.58.95 1.24 1.53.86.77 1.58 1.01 1.8 1.12.22.11.35.09.48-.05.13-.14.55-.64.69-.86.15-.22.29-.18.49-.11z"
-                  fill="white"
-                />
-              </svg>
-              <span className="text-base">+91 882-8888-283</span>
-            </a>
+  href="https://wa.me/918828888283"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors"
+>
+  <img
+    src="https://cdn-icons-png.flaticon.com/512/733/733585.png"
+    alt="WhatsApp"
+    className="w-6 h-6 object-contain"
+  />
+  <span className="text-base">+91 882-8888-283</span>
+</a>
 
             <a
               href="https://www.instagram.com/bhumitapetrochem"
