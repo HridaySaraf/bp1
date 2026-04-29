@@ -123,18 +123,17 @@ export default function DigitalCard() {
           {/* Contact Info */}
           <div className="space-y-5 relative z-10">
             {/* Phone */}
-            <a 
+<a 
   href="tel:+918828888283"
   className="flex items-center gap-4 text-white hover:text-blue-200 transition-colors"
 >
   <img 
     src="https://cdn-icons-png.flaticon.com/512/724/724664.png" 
-    alt="Phone" 
+    alt="Phone"
     className="w-6 h-6 object-contain"
   />
   <span className="text-base">+91 882-8888-283</span>
 </a>
-
             {/* Email */}
             <a 
               href="mailto:info@bhumitapetrochem.com"
